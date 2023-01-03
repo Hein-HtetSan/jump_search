@@ -2,8 +2,6 @@
 #include "stdio.h"
 #include "math.h"
 
-int step=3;
-int nextStep = 3;
 int min(int first, int second)
 {
    if(second > first)
@@ -17,12 +15,14 @@ int min(int first, int second)
 
 int Modified_Search(int arr[], int size, int target)
 {
+    // Formula
+   int step = log(size); // changed equation
    int previous = 0;
    while (arr[min(step, size)-1] < target)
    {
        /* code */
        previous = step;
-       previous += nextStep;
+       step = step + sqrt(size);
         if(previous >= size)
         {
             return -1;
@@ -41,13 +41,19 @@ int Modified_Search(int arr[], int size, int target)
 
 int main()
 {
-    int memory[] = {5,4,3,2,1,45,66, 14,76};
+    int n;
+    int memory[] = {5,4,3,2,1,45,66, 14,76, 55};
     int size = sizeof(memory)/sizeof(memory[0]);
     int toFind = 0;
-    int n = 14;
+    printf("Find Number : ");
+    scanf("%d", &n);
     // jump search
     int indexNumber = Modified_Search(memory, size, n);
-    printf("We found %d at index : %d", n,indexNumber);
+    if(indexNumber < 0){
+        printf("Not Found");
+    }else{
+        printf("We found %d at index : %d", n,indexNumber);
+    }
 
     return 0;
 }
